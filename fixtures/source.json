@@ -1,0 +1,246 @@
+{
+  "exchanges": [
+    {
+      "path": "/establish",
+      "method": "POST",
+      "body": {
+        "communicationEpoch": "e1"
+      },
+      "requires": {},
+      "sets": {
+        "connected": true
+      },
+      "status": 200,
+      "query": {}
+    },
+    {
+      "path": "/status",
+      "method": "GET",
+      "body": {
+        "equipment": "tool1",
+        "state": {
+          "type": "U1",
+          "value": 3
+        }
+      },
+      "requires": {},
+      "sets": {},
+      "status": 200,
+      "query": {}
+    },
+    {
+      "path": "/reports",
+      "method": "GET",
+      "body": {
+        "bindingVersion": "b1",
+        "reports": [
+          {
+            "reportId": 10,
+            "vids": [
+              "lot",
+              "reason"
+            ]
+          }
+        ]
+      },
+      "requires": {
+        "connected": true
+      },
+      "sets": {},
+      "status": 200,
+      "query": {}
+    },
+    {
+      "path": "/links",
+      "method": "GET",
+      "body": {
+        "bindingVersion": "b1",
+        "links": [
+          {
+            "ceid": 20,
+            "reportIds": [
+              10
+            ]
+          }
+        ]
+      },
+      "requires": {
+        "connected": true
+      },
+      "sets": {},
+      "status": 200,
+      "query": {}
+    },
+    {
+      "path": "/events",
+      "method": "GET",
+      "body": {
+        "items": [
+          {
+            "deliveryId": "d1",
+            "DATAID": 1,
+            "CEID": 20,
+            "RPTID": 10,
+            "typedValues": [
+              {
+                "type": "A",
+                "value": "LOT-A"
+              },
+              {
+                "type": "U1",
+                "value": 7
+              }
+            ],
+            "bindingVersion": "b1",
+            "communicationEpoch": "e1"
+          }
+        ],
+        "next": 1
+      },
+      "requires": {
+        "connected": true
+      },
+      "sets": {},
+      "status": 200,
+      "query": {
+        "after": "0"
+      }
+    },
+    {
+      "path": "/event-ack",
+      "method": "POST",
+      "body": {
+        "accepted": true
+      },
+      "requires": {
+        "connected": true
+      },
+      "sets": {},
+      "status": 200,
+      "query": {}
+    },
+    {
+      "path": "/bindings/b1",
+      "method": "GET",
+      "body": {
+        "bindingVersion": "b1",
+        "reports": [
+          {
+            "reportId": 10,
+            "vids": [
+              "lot",
+              "reason"
+            ]
+          }
+        ],
+        "links": [
+          {
+            "ceid": 20,
+            "reportIds": [
+              10
+            ]
+          }
+        ]
+      },
+      "requires": {},
+      "sets": {},
+      "status": 200,
+      "query": {}
+    }
+  ],
+  "cases": {
+    "relinked": [
+      {
+        "path": "/reports",
+        "method": "GET",
+        "body": {
+          "bindingVersion": "b2",
+          "reports": [
+            {
+              "reportId": 10,
+              "vids": [
+                "recipe",
+                "pressure"
+              ]
+            }
+          ]
+        },
+        "requires": {
+          "connected": true
+        },
+        "sets": {},
+        "status": 200,
+        "query": {}
+      },
+      {
+        "path": "/events",
+        "method": "GET",
+        "body": {
+          "items": [
+            {
+              "deliveryId": "d2",
+              "DATAID": 2,
+              "CEID": 20,
+              "RPTID": 10,
+              "typedValues": [
+                {
+                  "type": "A",
+                  "value": "R2"
+                },
+                {
+                  "type": "F4",
+                  "value": 1.2
+                }
+              ],
+              "bindingVersion": "b2",
+              "communicationEpoch": "e2"
+            }
+          ],
+          "next": 2
+        },
+        "requires": {
+          "connected": true
+        },
+        "sets": {},
+        "status": 200,
+        "query": {
+          "after": "0"
+        }
+      },
+      {
+        "path": "/establish",
+        "method": "POST",
+        "body": {
+          "communicationEpoch": "e2"
+        },
+        "requires": {},
+        "sets": {
+          "connected": true
+        },
+        "status": 200,
+        "query": {}
+      },
+      {
+        "path": "/links",
+        "method": "GET",
+        "body": {
+          "bindingVersion": "b2",
+          "links": [
+            {
+              "ceid": 20,
+              "reportIds": [
+                10
+              ]
+            }
+          ]
+        },
+        "requires": {
+          "connected": true
+        },
+        "sets": {},
+        "status": 200,
+        "query": {}
+      }
+    ]
+  }
+}
